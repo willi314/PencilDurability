@@ -14,5 +14,13 @@ namespace PillarPencilDurabilityTest
             pencil.write("Test text");
             Assert.AreEqual("Test text", pencil.checkPage());
         }
+
+        [TestMethod]
+        public void WhenPencilWritesItsPointLosesDurability()
+        {
+            PencilDurability pencil = new PencilDurability(10);
+            pencil.write("Test text");
+            Assert.AreEqual(2, pencil.checkPointDurability());
+        }
     }
 }
