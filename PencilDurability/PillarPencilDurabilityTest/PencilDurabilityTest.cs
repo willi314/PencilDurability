@@ -7,10 +7,17 @@ namespace PillarPencilDurabilityTest
     [TestClass]
     public class PencilDurabilityTest
     {
+        PencilDurability pencil;
+
+        [TestInitialize()]
+        public void Initialize()
+        {
+            pencil = new PencilDurability(10);
+        }
+
         [TestMethod]
         public void WhenPencilWritesOnPageTextAppearsOnPage()
         {
-            PencilDurability pencil = new PencilDurability();
             pencil.write("Test text");
             Assert.AreEqual("Test text", pencil.checkPage());
         }
@@ -18,7 +25,6 @@ namespace PillarPencilDurabilityTest
         [TestMethod]
         public void WhenPencilWritesItsPointLosesDurability()
         {
-            PencilDurability pencil = new PencilDurability(10);
             pencil.write("test text");
             Assert.AreEqual(2, pencil.checkPointDurability());
         }
@@ -26,7 +32,6 @@ namespace PillarPencilDurabilityTest
         [TestMethod]
         public void CapitolLettersDecreasePointDurabilityByTwoPoints()
         {
-            PencilDurability pencil = new PencilDurability(10);
             pencil.write("TEST");
             Assert.AreEqual(2, pencil.checkPointDurability());
         }
@@ -34,7 +39,6 @@ namespace PillarPencilDurabilityTest
         [TestMethod]
         public void WhenPointDegradesFullySpacesAreAppendedInsteadOfCharachters()
         {
-            PencilDurability pencil = new PencilDurability(10);
             pencil.write("Test Message");
             Assert.AreEqual("Test Mess   ", pencil.checkPage());
         }

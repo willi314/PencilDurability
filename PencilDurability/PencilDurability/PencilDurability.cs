@@ -70,16 +70,14 @@ namespace PillarPencilDurability
                         shortenedString += textToWrite[i];
                     }
                     else shortenedString += " ";
+                    continue;
                 }
-                else
+                else if (remainingPointDurability >= 1)
                 {
-                    if (remainingPointDurability >= 1)
-                    {
                         remainingPointDurability -= 1;
                         shortenedString += textToWrite[i];
-                    }
-                    else shortenedString += " ";
                 }
+                else shortenedString += " ";
             }
             return shortenedString;
         }
