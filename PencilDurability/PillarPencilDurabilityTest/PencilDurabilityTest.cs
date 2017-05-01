@@ -30,5 +30,13 @@ namespace PillarPencilDurabilityTest
             pencil.write("TEST");
             Assert.AreEqual(2, pencil.checkPointDurability());
         }
+
+        [TestMethod]
+        public void WhenPointDegradesFullySpacesAreAppendedInsteadOfCharachters()
+        {
+            PencilDurability pencil = new PencilDurability(10);
+            pencil.write("Test Message");
+            Assert.AreEqual("Test Mess   ", pencil.checkPage());
+        }
     }
 }

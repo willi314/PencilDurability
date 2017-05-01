@@ -18,9 +18,17 @@ namespace PillarPencilDurability
 
         public void write(string textToWrite)
         {
-            textOnPaper += textToWrite;
-            pointDurability -= getPointDegradationValue(textToWrite);
-            if (pointDurability < 0) pointDurability = 0;
+            int pointDegradationValue = getPointDegradationValue(textToWrite);
+            if (pointDurability > pointDegradationValue)
+            {
+                textOnPaper += textToWrite;
+                pointDurability -= pointDegradationValue;
+            }
+            else
+            {
+                textOnPaper += getShortenedString(textToWrite, pointDurability);
+                pointDurability = 0;
+            }
         }
 
         public string checkPage()
@@ -46,6 +54,34 @@ namespace PillarPencilDurability
                 else degradationValue++;
             }
             return degradationValue;
+        }
+        private string getShortenedString(string textToWrite, int pointDurability)
+        {
+            string shortenedString = "";
+            int remainingPointDurability = pointDurability;
+            for (int i = 0; i < textToWrite.Length; i++)
+            {
+                if (Char.IsWhiteSpace(textToWrite[i])) shortenedString += textToWrite[i];
+                else if (Char.IsUpper(textToWrite[i]))
+                {
+                    if (remainingPointDurability >= 2)
+                    {
+                        remainingPointDurability -= 2;
+                        shortenedString += textToWrite[i];
+                    }
+                    else shortenedString += " ";
+                }
+                else
+                {
+                    if (remainingPointDurability >= 1)
+                    {
+                        remainingPointDurability -= 1;
+                        shortenedString += textToWrite[i];
+                    }
+                    else shortenedString += " ";
+                }
+            }
+            return shortenedString;
         }
     }
 }
