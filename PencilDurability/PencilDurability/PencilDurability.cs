@@ -54,6 +54,17 @@ namespace PillarPencilDurability
             }
         }
 
+        public void erase(string textToErase)
+        {
+            int eraseStartIndex = textOnPaper.LastIndexOf(textToErase);
+            StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
+            for(int i = eraseStartIndex; i < eraseStartIndex + textToErase.Length; i++)
+            {
+                textOnPaperStringBuilder[i] = ' ';
+            }
+            textOnPaper = textOnPaperStringBuilder.ToString();
+        }
+
         private int getPointDegradationValue(string textToWrite)
         {
             textToWrite = textToWrite.Replace(" ", "");
