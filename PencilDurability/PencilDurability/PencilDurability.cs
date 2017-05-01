@@ -10,9 +10,11 @@ namespace PillarPencilDurability
     {
         private string textOnPaper;
         private int pointDurability;
+        private int initialPointDurability;
         public PencilDurability(int pointDurability = 10)
         {
             this.pointDurability = pointDurability;
+            initialPointDurability = pointDurability;
             textOnPaper = "";
         }
 
@@ -41,6 +43,11 @@ namespace PillarPencilDurability
             return pointDurability;
         }
 
+        public void sharpen()
+        {
+            pointDurability = initialPointDurability;
+        }
+
         private int getPointDegradationValue(string textToWrite)
         {
             textToWrite = textToWrite.Replace(" ", "");
@@ -55,6 +62,7 @@ namespace PillarPencilDurability
             }
             return degradationValue;
         }
+
         private string getShortenedString(string textToWrite, int pointDurability)
         {
             string shortenedString = "";
