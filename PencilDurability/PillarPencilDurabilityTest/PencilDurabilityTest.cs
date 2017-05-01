@@ -19,7 +19,15 @@ namespace PillarPencilDurabilityTest
         public void WhenPencilWritesItsPointLosesDurability()
         {
             PencilDurability pencil = new PencilDurability(10);
-            pencil.write("Test text");
+            pencil.write("test text");
+            Assert.AreEqual(2, pencil.checkPointDurability());
+        }
+
+        [TestMethod]
+        public void CapitolLettersDecreasePointDurabilityByTwoPoints()
+        {
+            PencilDurability pencil = new PencilDurability(10);
+            pencil.write("TEST");
             Assert.AreEqual(2, pencil.checkPointDurability());
         }
     }

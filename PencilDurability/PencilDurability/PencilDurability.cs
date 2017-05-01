@@ -19,7 +19,7 @@ namespace PillarPencilDurability
         public void write(string textToWrite)
         {
             textOnPaper += textToWrite;
-            pointDurability -= textToWrite.Replace(" ", "").Length;
+            pointDurability -= getPointDegradationValue(textToWrite);
             if (pointDurability < 0) pointDurability = 0;
         }
 
@@ -31,6 +31,21 @@ namespace PillarPencilDurability
         public int checkPointDurability()
         {
             return pointDurability;
+        }
+
+        private int getPointDegradationValue(string textToWrite)
+        {
+            textToWrite = textToWrite.Replace(" ", "");
+            int degradationValue = 0;
+            for(int i = 0; i < textToWrite.Length; i++)
+            {
+                if (Char.IsUpper(textToWrite[i]))
+                {
+                    degradationValue += 2;
+                }
+                else degradationValue++;
+            }
+            return degradationValue;
         }
     }
 }
