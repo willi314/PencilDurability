@@ -117,5 +117,12 @@ namespace PillarPencilDurabilityTest
             pencil.writeAtIndex(3, "test");
             Assert.AreEqual("test@est", pencil.checkPage());
         }
+
+        [TestMethod]
+        public void NewLineCharactersDontDegradePencilPoint()
+        {
+            pencil.write("test\ntest");
+            Assert.AreEqual(2, pencil.checkPointDurability());
+        }
     }
 }

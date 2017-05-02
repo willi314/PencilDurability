@@ -89,10 +89,10 @@ namespace PillarPencilDurability
 
         private int getPointDegradationValue(string textToWrite)
         {
-            textToWrite = textToWrite.Replace(" ", "");
             int degradationValue = 0;
             for(int i = 0; i < textToWrite.Length; i++)
             {
+                if (Char.IsWhiteSpace(textToWrite[i]) || textToWrite[i].Equals('\n')) continue;
                 if (Char.IsUpper(textToWrite[i]))
                 {
                     degradationValue += UPPERCASE_LETTER_DEGRADATION_VALUE;
@@ -131,7 +131,7 @@ namespace PillarPencilDurability
             int remainingPointDurability = pointDurability;
             for (int i = 0; i < textToWrite.Length; i++)
             {
-                if (Char.IsWhiteSpace(textToWrite[i])) shortenedString += textToWrite[i];
+                if (Char.IsWhiteSpace(textToWrite[i]) || textToWrite[i].Equals('\n')) shortenedString += textToWrite[i];
                 else if (Char.IsUpper(textToWrite[i]))
                 {
                     if (remainingPointDurability >= UPPERCASE_LETTER_DEGRADATION_VALUE)
