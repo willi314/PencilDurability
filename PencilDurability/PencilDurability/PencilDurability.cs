@@ -8,6 +8,9 @@ namespace PillarPencilDurability
 {
     public class PencilDurability
     {
+        const int UPPERCASE_LETTER_DEGRADATION_VALUE = 2;
+        const int LOWERCASE_LETTER_DEGRADATION_VALUE = 1;
+
         private string textOnPaper;
         private int pointDurability;
         private int initialPointDurability;
@@ -83,9 +86,9 @@ namespace PillarPencilDurability
             {
                 if (Char.IsUpper(textToWrite[i]))
                 {
-                    degradationValue += 2;
+                    degradationValue += UPPERCASE_LETTER_DEGRADATION_VALUE;
                 }
-                else degradationValue++;
+                else degradationValue += LOWERCASE_LETTER_DEGRADATION_VALUE;
             }
             return degradationValue;
         }
@@ -99,17 +102,17 @@ namespace PillarPencilDurability
                 if (Char.IsWhiteSpace(textToWrite[i])) shortenedString += textToWrite[i];
                 else if (Char.IsUpper(textToWrite[i]))
                 {
-                    if (remainingPointDurability >= 2)
+                    if (remainingPointDurability >= UPPERCASE_LETTER_DEGRADATION_VALUE)
                     {
-                        remainingPointDurability -= 2;
+                        remainingPointDurability -= UPPERCASE_LETTER_DEGRADATION_VALUE;
                         shortenedString += textToWrite[i];
                     }
                     else shortenedString += " ";
                     continue;
                 }
-                else if (remainingPointDurability >= 1)
+                else if (remainingPointDurability >= LOWERCASE_LETTER_DEGRADATION_VALUE)
                 {
-                        remainingPointDurability -= 1;
+                        remainingPointDurability -= LOWERCASE_LETTER_DEGRADATION_VALUE;
                         shortenedString += textToWrite[i];
                 }
                 else shortenedString += " ";
