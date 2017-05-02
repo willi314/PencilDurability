@@ -66,8 +66,9 @@ namespace PillarPencilDurability
         {
             int eraseStartIndex = textOnPaper.LastIndexOf(textToErase);
             StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
-            for(int i = eraseStartIndex; i < eraseStartIndex + textToErase.Length; i++)
+            for(int i = eraseStartIndex + textToErase.Length - 1; i >= eraseStartIndex; i--)
             {
+                if (eraserDurability <= 0) break;
                 textOnPaperStringBuilder[i] = ' ';
                 eraserDurability--;
             }
