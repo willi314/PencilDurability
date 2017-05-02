@@ -101,11 +101,15 @@ namespace PillarPencilDurability
             StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
             for(int i = startIndex; i < startIndex + textToWrite.Length; i++)
             {
-                if (textOnPaper[i].Equals(textToWrite[i - startIndex]) || Char.IsWhiteSpace(textOnPaper[i]) || i >= textOnPaper.Length)
+                if(i >= textOnPaper.Length)
+                {
+                    textOnPaperStringBuilder.Append(textToWrite[i - startIndex]);
+                }
+                else if (textOnPaper[i].Equals(textToWrite[i - startIndex]) || Char.IsWhiteSpace(textOnPaper[i]) || i >= textOnPaper.Length)
                 {
                     textOnPaperStringBuilder[i] = textToWrite[i - startIndex];
                 }
-                if (char.IsWhiteSpace(textToWrite[i - startIndex])) continue;
+                else if (char.IsWhiteSpace(textToWrite[i - startIndex])) continue;
             }
 
             textOnPaper = textOnPaperStringBuilder.ToString();
