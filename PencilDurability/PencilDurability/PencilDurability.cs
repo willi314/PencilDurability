@@ -11,6 +11,7 @@ namespace PillarPencilDurability
     {
         const int UPPERCASE_LETTER_DEGRADATION_VALUE = 2;
         const int LOWERCASE_LETTER_DEGRADATION_VALUE = 1;
+        const char OVERLAP_CHARACHTER = '@';
 
         private Pencil pencil;
         private Eraser eraser;
@@ -45,6 +46,11 @@ namespace PillarPencilDurability
             {
                 insertText(startIndex, textToWrite);
                 pencil.PointDurability -= pointDegradationValue;
+            }
+            else
+            {
+                insertText(startIndex, getShortenedString(textToWrite, pencil.PointDurability));
+                pencil.PointDurability = 0;
             }
         }
 
@@ -110,6 +116,10 @@ namespace PillarPencilDurability
                     textOnPaperStringBuilder[i] = textToWrite[i - startIndex];
                 }
                 else if (char.IsWhiteSpace(textToWrite[i - startIndex])) continue;
+                else
+                {
+                    textOnPaperStringBuilder[i] = OVERLAP_CHARACHTER;
+                }
             }
 
             textOnPaper = textOnPaperStringBuilder.ToString();

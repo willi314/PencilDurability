@@ -101,5 +101,21 @@ namespace PillarPencilDurabilityTest
             pencil.writeAtIndex(6, "test");
             Assert.AreEqual("test  test", pencil.checkPage());
         }
+
+        [TestMethod]
+        public void WhenInsertingCharachtersOverDifferentCharachtersAnAtSignIsWrittenInstead()
+        {
+            pencil.write("test");
+            pencil.writeAtIndex(0, "toss");
+            Assert.AreEqual("t@s@", pencil.checkPage());
+        }
+
+        [TestMethod]
+        public void PencilPointCanFullyDegradeWhileEditingText()
+        {
+            pencil.write("testtest");
+            pencil.writeAtIndex(3, "test");
+            Assert.AreEqual("test@est", pencil.checkPage());
+        }
     }
 }
