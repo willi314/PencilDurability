@@ -7,8 +7,8 @@
     <ProjectGuid>{D7CF311F-184C-42E0-BD9D-781E60AC5C52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PencilDurability</RootNamespace>
-    <AssemblyName>PencilDurability</AssemblyName>
+    <RootNamespace>PillarPencilDurability</RootNamespace>
+    <AssemblyName>PillarPencilDurability</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pencil.cs" />
     <Compile Include="PencilDurability.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

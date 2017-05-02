@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PillarPencilDurability;
 
 namespace PillarPencilDurability
 {
@@ -11,33 +12,29 @@ namespace PillarPencilDurability
         const int UPPERCASE_LETTER_DEGRADATION_VALUE = 2;
         const int LOWERCASE_LETTER_DEGRADATION_VALUE = 1;
 
+        private Pencil pencil;
         private string textOnPaper;
-        private int pointDurability;
-        private int initialPointDurability;
-        private int pencilLength;
         private int eraserDurability;
 
         public PencilDurability(int pointDurability = 30, int pencilLength = 30, int eraserDurability = 30)
         {
-            this.pointDurability = pointDurability;
-            this.pencilLength = pencilLength;
+            pencil = new Pencil(pointDurability, pencilLength);
             this.eraserDurability = eraserDurability;
-            initialPointDurability = pointDurability;
             textOnPaper = "";
         }
 
         public void write(string textToWrite)
         {
             int pointDegradationValue = getPointDegradationValue(textToWrite);
-            if (pointDurability > pointDegradationValue)
+            if (pencil.PointDurability > pointDegradationValue)
             {
                 textOnPaper += textToWrite;
-                pointDurability -= pointDegradationValue;
+                pencil.PointDurability -= pointDegradationValue;
             }
             else
             {
-                textOnPaper += getShortenedString(textToWrite, pointDurability);
-                pointDurability = 0;
+                textOnPaper += getShortenedString(textToWrite, pencil.PointDurability);
+                pencil.PointDurability = 0;
             }
         }
 
@@ -48,7 +45,7 @@ namespace PillarPencilDurability
 
         public int checkPointDurability()
         {
-            return pointDurability;
+            return pencil.PointDurability;
         }
 
         public int checkEraserDurability()
@@ -58,11 +55,7 @@ namespace PillarPencilDurability
 
         public void sharpen()
         {
-            if (pencilLength > 0)
-            {
-                pointDurability = initialPointDurability;
-                pencilLength--;
-            }
+            pencil.sharpen();
         }
 
         public void erase(string textToErase)
