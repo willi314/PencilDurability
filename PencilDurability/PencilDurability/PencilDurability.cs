@@ -13,13 +13,13 @@ namespace PillarPencilDurability
         const int LOWERCASE_LETTER_DEGRADATION_VALUE = 1;
 
         private Pencil pencil;
+        private Eraser eraser;
         private string textOnPaper;
-        private int eraserDurability;
 
         public PencilDurability(int pointDurability = 30, int pencilLength = 30, int eraserDurability = 30)
         {
             pencil = new Pencil(pointDurability, pencilLength);
-            this.eraserDurability = eraserDurability;
+            eraser = new Eraser(eraserDurability);
             textOnPaper = "";
         }
 
@@ -50,7 +50,7 @@ namespace PillarPencilDurability
 
         public int checkEraserDurability()
         {
-            return eraserDurability;
+            return eraser.EraserDurability;
         }
 
         public void sharpen()
@@ -64,9 +64,9 @@ namespace PillarPencilDurability
             StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
             for(int i = eraseStartIndex + textToErase.Length - 1; i >= eraseStartIndex; i--)
             {
-                if (eraserDurability <= 0) break;
+                if (eraser.EraserDurability <= 0) break;
                 textOnPaperStringBuilder[i] = ' ';
-                eraserDurability--;
+                eraser.EraserDurability--;
             }
             textOnPaper = textOnPaperStringBuilder.ToString();
         }

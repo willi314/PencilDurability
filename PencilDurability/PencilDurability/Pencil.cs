@@ -12,6 +12,13 @@ namespace PillarPencilDurability
         private int initialPointDurability;
         private int pencilLength;
 
+        public Pencil(int pointDurability = 30, int pencilLength = 30)
+        {
+            this.PointDurability = pointDurability;
+            this.pencilLength = pencilLength;
+            initialPointDurability = pointDurability;
+        }
+
         public int PointDurability
         {
             get
@@ -31,13 +38,6 @@ namespace PillarPencilDurability
             {
                 return pencilLength;
             }
-        }
-
-        public Pencil(int pointDurability = 30, int pencilLength = 30)
-        {
-            this.PointDurability = pointDurability;
-            this.pencilLength = pencilLength;
-            initialPointDurability = pointDurability;
         }
 
         public void sharpen()
