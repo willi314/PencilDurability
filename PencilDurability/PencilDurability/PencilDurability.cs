@@ -9,8 +9,7 @@ namespace PillarPencilDurability
 {
     public class PencilDurability
     {
-        const int UPPERCASE_LETTER_DEGRADATION_VALUE = 2;
-        const int LOWERCASE_LETTER_DEGRADATION_VALUE = 1;
+        
         const char OVERLAP_CHARACHTER = '@';
 
         private Pencil pencil;
@@ -26,7 +25,7 @@ namespace PillarPencilDurability
 
         public void write(string textToWrite)
         {
-            int pointDegradationValue = getPointDegradationValue(textToWrite);
+            int pointDegradationValue = pencil.getPointDegradationValue(textToWrite);
             if (pencil.PointDurability > pointDegradationValue)
             {
                 textOnPaper += textToWrite;
@@ -34,14 +33,14 @@ namespace PillarPencilDurability
             }
             else
             {
-                textOnPaper += getShortenedString(textToWrite, pencil.PointDurability);
+                textOnPaper += pencil.getShortenedString(textToWrite, pencil.PointDurability);
                 pencil.PointDurability = 0;
             }
         }
 
         public void writeAtIndex(int startIndex, string textToWrite)
         {
-            int pointDegradationValue = getPointDegradationValue(textToWrite);
+            int pointDegradationValue = pencil.getPointDegradationValue(textToWrite);
             if (pencil.PointDurability > pointDegradationValue)
             {
                 insertText(startIndex, textToWrite);
@@ -49,7 +48,7 @@ namespace PillarPencilDurability
             }
             else
             {
-                insertText(startIndex, getShortenedString(textToWrite, pencil.PointDurability));
+                insertText(startIndex, pencil.getShortenedString(textToWrite, pencil.PointDurability));
                 pencil.PointDurability = 0;
             }
         }
@@ -87,21 +86,6 @@ namespace PillarPencilDurability
             textOnPaper = textOnPaperStringBuilder.ToString();
         }
 
-        private int getPointDegradationValue(string textToWrite)
-        {
-            int degradationValue = 0;
-            for(int i = 0; i < textToWrite.Length; i++)
-            {
-                if (Char.IsWhiteSpace(textToWrite[i]) || textToWrite[i].Equals('\n')) continue;
-                if (Char.IsUpper(textToWrite[i]))
-                {
-                    degradationValue += UPPERCASE_LETTER_DEGRADATION_VALUE;
-                }
-                else degradationValue += LOWERCASE_LETTER_DEGRADATION_VALUE;
-            }
-            return degradationValue;
-        }
-
         private void insertText(int startIndex, string textToWrite)
         {
             StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
@@ -121,35 +105,7 @@ namespace PillarPencilDurability
                     textOnPaperStringBuilder[i] = OVERLAP_CHARACHTER;
                 }
             }
-
             textOnPaper = textOnPaperStringBuilder.ToString();
-        }
-
-        private string getShortenedString(string textToWrite, int pointDurability)
-        {
-            string shortenedString = "";
-            int remainingPointDurability = pointDurability;
-            for (int i = 0; i < textToWrite.Length; i++)
-            {
-                if (Char.IsWhiteSpace(textToWrite[i]) || textToWrite[i].Equals('\n')) shortenedString += textToWrite[i];
-                else if (Char.IsUpper(textToWrite[i]))
-                {
-                    if (remainingPointDurability >= UPPERCASE_LETTER_DEGRADATION_VALUE)
-                    {
-                        remainingPointDurability -= UPPERCASE_LETTER_DEGRADATION_VALUE;
-                        shortenedString += textToWrite[i];
-                    }
-                    else shortenedString += " ";
-                    continue;
-                }
-                else if (remainingPointDurability >= LOWERCASE_LETTER_DEGRADATION_VALUE)
-                {
-                        remainingPointDurability -= LOWERCASE_LETTER_DEGRADATION_VALUE;
-                        shortenedString += textToWrite[i];
-                }
-                else shortenedString += " ";
-            }
-            return shortenedString;
         }
     }
 }
