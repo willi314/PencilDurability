@@ -38,6 +38,16 @@ namespace PillarPencilDurability
             }
         }
 
+        public void writeAtIndex(int startIndex, string textToWrite)
+        {
+            int pointDegradationValue = getPointDegradationValue(textToWrite);
+            if (pencil.PointDurability > pointDegradationValue)
+            {
+                insertText(startIndex, textToWrite);
+                pencil.PointDurability -= pointDegradationValue;
+            }
+        }
+
         public string checkPage()
         {
             return textOnPaper;
@@ -84,6 +94,21 @@ namespace PillarPencilDurability
                 else degradationValue += LOWERCASE_LETTER_DEGRADATION_VALUE;
             }
             return degradationValue;
+        }
+
+        private void insertText(int startIndex, string textToWrite)
+        {
+            StringBuilder textOnPaperStringBuilder = new StringBuilder(textOnPaper);
+            for(int i = startIndex; i < startIndex + textToWrite.Length; i++)
+            {
+                if (textOnPaper[i].Equals(textToWrite[i - startIndex]) || Char.IsWhiteSpace(textOnPaper[i]) || i >= textOnPaper.Length)
+                {
+                    textOnPaperStringBuilder[i] = textToWrite[i - startIndex];
+                }
+                if (char.IsWhiteSpace(textToWrite[i - startIndex])) continue;
+            }
+
+            textOnPaper = textOnPaperStringBuilder.ToString();
         }
 
         private string getShortenedString(string textToWrite, int pointDurability)

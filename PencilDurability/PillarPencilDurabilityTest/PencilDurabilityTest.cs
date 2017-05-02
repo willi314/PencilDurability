@@ -85,5 +85,13 @@ namespace PillarPencilDurabilityTest
             pencil.erase("TestTest");
             Assert.AreEqual("Tes     ", pencil.checkPage());
         }
+
+        [TestMethod]
+        public void PencilCanWriteNewTextInWhiteSpace()
+        {
+            pencil.write("te      st");
+            pencil.writeAtIndex(3, "test");
+            Assert.AreEqual("te test st", pencil.checkPage());
+        }
     }
 }
