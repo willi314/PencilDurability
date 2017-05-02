@@ -12,10 +12,13 @@ namespace PillarPencilDurability
         private int pointDurability;
         private int initialPointDurability;
         private int pencilLength;
-        public PencilDurability(int pointDurability = 30, int pencilLength = 30)
+        private int eraserDurability;
+
+        public PencilDurability(int pointDurability = 30, int pencilLength = 30, int eraserDurability = 30)
         {
             this.pointDurability = pointDurability;
             this.pencilLength = pencilLength;
+            this.eraserDurability = eraserDurability;
             initialPointDurability = pointDurability;
             textOnPaper = "";
         }
@@ -45,6 +48,11 @@ namespace PillarPencilDurability
             return pointDurability;
         }
 
+        public int checkEraserDurability()
+        {
+            return eraserDurability;
+        }
+
         public void sharpen()
         {
             if (pencilLength > 0)
@@ -61,6 +69,7 @@ namespace PillarPencilDurability
             for(int i = eraseStartIndex; i < eraseStartIndex + textToErase.Length; i++)
             {
                 textOnPaperStringBuilder[i] = ' ';
+                eraserDurability--;
             }
             textOnPaper = textOnPaperStringBuilder.ToString();
         }

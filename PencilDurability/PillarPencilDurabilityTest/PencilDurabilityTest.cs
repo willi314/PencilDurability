@@ -12,7 +12,7 @@ namespace PillarPencilDurabilityTest
         [TestInitialize()]
         public void Initialize()
         {
-            pencil = new PencilDurability(10);
+            pencil = new PencilDurability(10, 10, 10);
         }
 
         [TestMethod]
@@ -68,6 +68,14 @@ namespace PillarPencilDurabilityTest
             pencil.write("test test");
             pencil.erase("test");
             Assert.AreEqual("test     ", pencil.checkPage());
+        }
+
+        [TestMethod]
+        public void ErasingTextReducesTheDurabilityOfTheEraser()
+        {
+            pencil.write("TestTest");
+            pencil.erase("Test");
+            Assert.AreEqual(6, pencil.checkEraserDurability());
         }
     }
 }
